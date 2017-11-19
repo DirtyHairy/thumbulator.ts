@@ -9,6 +9,14 @@ The thumbulator itself has been transpiled from C using
 is written in Typescript. As such, the module can be directly used with
 TS, no external typings required (of course, it works in plain JS, too).
 
+# Installation
+
+The package is available on NPM
+
+```
+$ npm install thumbulator.ts
+```
+
 # How to use it?
 
 The package has a single default export: the `Thumbulator` class. In order to
