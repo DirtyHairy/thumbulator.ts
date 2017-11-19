@@ -7,12 +7,12 @@ the thumb subset of the ARM instruction set.
 The thumbulator itself has been transpiled from C using
 [emscripten](http://kripken.github.io/emscripten-site/), the glue code around it
 is written in Typescript. As such, the module can be directly used with
-TS, not external typings required (of course, it works in plain JS, too).
+TS, no external typings required (of course, it works in plain JS, too).
 
 # How to use it?
 
 The package has a single default export: the `Thumbulator` class. In order to
-instatiate, you need to pass a `bus` object that implements reading and writing
+instantiate, you need to pass a `bus` object that implements reading and writing
 from the bus.
 
 ```typescript
@@ -23,13 +23,13 @@ const thumbulator = new Thumbulator({
         // read a 16 bit word at the given address
     },
     read32: (address: number): number => {
-        // optional; read a 32 bit word (will use read16 instead if not specified)
+        // optional; read a 32 bit word (will use read16 instead if not defined)
     },
     write16: (address: number, value: number) => {
-        // owrite a 16 bit word to the given address
+        // write a 16 bit word to the given address
     },
     write32: (address: number, value: number) => {
-        // optional; write a 32 bit word (will use write16 if not specified)
+        // optional; write a 32 bit word (will use write16 if not defined)
     }
 });
 ```
@@ -48,7 +48,8 @@ const trapReason: Thumbulator.TrapReason = thumbulator.run(cycles);
 ```
 
 Run the emulation for `cycles` instructions or until a trap occurs. See the
-typings for trap codes.
+[source](https://github.com/DirtyHairy/thumbulator.ts/blob/master/src/Thumbulator.ts#L114)
+for trap codes.
 
 ## Aborting the running emulator (during bus access)
 
@@ -56,7 +57,7 @@ typings for trap codes.
 thumbulator.abort();
 ```
 
-This will cause `run` to return immediatelly with `TrapReason.abort`.
+This will cause `run` to return immediatelly with `TrapReason.abort` (10).
 
 ## Reset the emulation
 
@@ -79,14 +80,14 @@ These will read and write registers.
 thumbulator.enableDebug(true);
 ```
 
+This will cause the emulator to enter verbose mode and dump disassembly (via `console.error`);
+
 # Why?
 
 This module is used in the [6502.ts](https://github.com/6502ts/6502.ts) VCS emulator
-in order to emulate the ARM SOC in the Harmony cartridge.
+for emulating the ARM SOC in the Harmony cartridge.
 
 # License
-
-This will cause the emulator to enter verbose mode and dump disassembly (via `console.error`);
 
 Both David Welch's original code and the glue around it are licensed under the
 MIT license.
