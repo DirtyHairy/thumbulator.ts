@@ -116,7 +116,8 @@ namespace Thumbulator {
         noTrap = 0,
         breakpoint = 1,
         blxLeaveThumb = 2,
-        bxLeaveThumb = 3
+        bxLeaveThumb = 3,
+        abort = 10
     }
 
     export interface Bus {

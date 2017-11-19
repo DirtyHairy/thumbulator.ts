@@ -6,6 +6,7 @@
   "types": "lib/Thumbulator.d.ts",
   "author": "cnspeckn@googlemail.com",
   "license": "MIT",
+  "files": ["lib"],
   "devDependencies": {
     "@types/emscripten": "^0.0.31",
     "@types/mocha": "^2.2.44",
@@ -15,7 +16,7 @@
     "typescript": "^2.6.1"
   },
   "scripts": {
-    "prebublish": "yarn test && yarn build",
+    "prepublish": "yarn test && yarn build",
     "build": "./script/build.js",
     "test": "./script/build_test.js && mocha -u tdd -R spec build_test/test/*.js"
   },
