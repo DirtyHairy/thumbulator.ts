@@ -33,9 +33,9 @@ const thumbulator = new Thumbulator({
     }
 }, {
     printer: (line: string): void => {
-        // optional; override logging (uses console.log and console.error by defaul)
+        // optional; override logging (uses console.log and console.error by default)
     },
-    trapOnInstructionFetch(address: number): number => {
+    trapOnInstructionFetch: (address: number): number => {
         // optional; return a nonzero trap code to trap and stop the emulation on
         // instruction fetch
     }
@@ -90,7 +90,7 @@ These will read and write registers.
 thumbulator.enableDebug(true);
 ```
 
-This will cause the emulator to enter verbose mode and dump disassembly (via `console.error`);
+This will cause the emulator to enter verbose mode and dump disassembly
 
 # Why?
 
