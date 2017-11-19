@@ -1,0 +1,26 @@
+{
+  "name": "thumbulator.ts",
+  "version": "0.1.0",
+  "description": "The Thumbulator ARM emulator by David Welch, compiled to JavaScript",
+  "main": "lib/Thumbulator.js",
+  "types": "lib/Thumbulator.d.ts",
+  "author": "cnspeckn@googlemail.com",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/emscripten": "^0.0.31",
+    "@types/mocha": "^2.2.44",
+    "@types/node": "^8.0.53",
+    "mocha": "^4.0.1",
+    "shelljs": "^0.7.8",
+    "typescript": "^2.6.1"
+  },
+  "scripts": {
+    "prebublish": "yarn test && yarn build",
+    "build": "./script/build.js",
+    "test": "./script/build_test.js && mocha -u tdd -R spec build_test/test/*.js"
+  },
+  "dependencies": {
+    "tslib": "^1.8.0",
+    "tslint": "^5.8.0"
+  }
+}

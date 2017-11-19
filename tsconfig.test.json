@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "noImplicitAny": true,
+        "noUnusedLocals": true,
+        "target": "es6",
+        "allowUnreachableCode": true,
+        "downlevelIteration": true,
+        "importHelpers": true,
+        "noImplicitThis": true,
+        "removeComments": true,
+        "outDir": "build_test",
+        "sourceMap": true
+    },
+    "include": [
+        "test/**/*.ts"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}

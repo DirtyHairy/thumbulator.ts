@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "noImplicitAny": true,
+        "noUnusedLocals": true,
+        "target": "es5",
+        "allowUnreachableCode": true,
+        "downlevelIteration": true,
+        "importHelpers": true,
+        "lib": ["es5", "es6", "dom"],
+        "noImplicitThis": true,
+        "removeComments": true,
+        "outDir": "lib",
+        "declaration": true
+    },
+    "include": [
+        "src/**/*.ts"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}
