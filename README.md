@@ -31,8 +31,18 @@ const thumbulator = new Thumbulator({
     write32: (address: number, value: number) => {
         // optional; write a 32 bit word (will use write16 if not defined)
     }
+}, {
+    printer: (line: string): void => {
+        // optional; override logging (uses console.log and console.error by defaul)
+    },
+    trapOnInstructionFetch(address: number): number => {
+        // optional; return a nonzero trap code to trap and stop the emulation on
+        // instruction fetch
+    }
 });
 ```
+
+The second options object is optional
 
 After instantiation, call init and wait for the promise to resolve in order to
 make sure that the emscripten runtime has initialized.
