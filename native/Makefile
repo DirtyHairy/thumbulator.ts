@@ -14,7 +14,7 @@ EMCC_OPTS = -O3 \
 	-s INVOKE_RUN=0 \
 	-s NO_EXIT_RUNTIME=1 \
 	-s NODEJS_CATCH_EXIT=0 \
-	--closure 1
+	--closure 0
 
 all: $(OUT)
 
