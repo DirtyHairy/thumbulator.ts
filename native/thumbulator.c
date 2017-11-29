@@ -8,7 +8,8 @@ enum trap_reason {
     trap_breakpoint = 1,
     trap_blx_leave_thumb = 2,
     trap_bx_leave_thumb = 3,
-    trap_abort = 10
+    trap_abort = 10,
+    trap_stop = 20
 };
 
 unsigned int read32 ( unsigned int );
@@ -36,10 +37,16 @@ unsigned int systick_calibrate;
 unsigned int halfadd;
 unsigned int cpsr;
 unsigned int handler_mode;
+unsigned int stop_address;
 unsigned int reg_norm[16]; //normal execution mode, do not have a thread mode
 
 unsigned int trap_flag;
 
+//-----------------------------------------------------------------
+void set_stop_address(unsigned int address)
+{
+    stop_address = address;
+}
 //-----------------------------------------------------------------
 const char* ping()
 {
@@ -249,11 +256,16 @@ static int execute ()
 
     pc=read_register(15);
 
-    const int custom_trap = EM_ASM_INT({
-        return Module.trapOnInstructionFetch($0);
-    }, pc - 2);
+    int fetch_trap = 0;
+    if (stop_address != 0) {
+        if ((pc - 2) == stop_address) fetch_trap = trap_stop;
+    } else {
+        fetch_trap = EM_ASM_INT({
+            return Module.trapOnInstructionFetch($0);
+        }, pc - 2);
+    }
 
-    if (custom_trap) return custom_trap;
+    if (fetch_trap) return fetch_trap;
 
     if(handler_mode)
     {

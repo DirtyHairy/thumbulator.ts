@@ -30,6 +30,7 @@ interface ExportApi {
     _read_register(register: number): number;
     _write_register(register: number, value: number): void;
     _abort_run(): void;
+    _set_stop_address(address: number): void;
 }
 
 type EmModule = ExportApi & typeof Module;
@@ -49,11 +50,18 @@ interface EmModuleApi {
 
 class Thumbulator {
     constructor(bus: Thumbulator.Bus, options: Thumbulator.Options = {}) {
-        this._module = nativeThumbulator(this._getApi(bus, options));
+        this._options = {
+            stopAddress: 0,
+            ...options
+        };
+
+        this._module = nativeThumbulator(this._getApi(bus, this._options));
         this.enableDebug(false);
     }
 
-    async init(): Promise<void> {}
+    async init(): Promise<void> {
+        this._module._set_stop_address(this._options.stopAddress);
+    }
 
     ping(): string {
         return this._module.ccall('ping', 'string', [], []);
@@ -111,6 +119,8 @@ class Thumbulator {
     }
 
     private _module: EmModule = null;
+
+    private _options: Thumbulator.Options = null;
 }
 
 namespace Thumbulator {
@@ -119,7 +129,8 @@ namespace Thumbulator {
         breakpoint = 1,
         blxLeaveThumb = 2,
         bxLeaveThumb = 3,
-        abort = 10
+        abort = 10,
+        stop = 20
     }
 
     export interface Bus {
@@ -133,6 +144,7 @@ namespace Thumbulator {
     export interface Options {
         printer?: (data: string) => void;
         trapOnInstructionFetch?: (address: number) => number;
+        stopAddress?: number;
         trapOnBx32?: (address: number, targetAddress: number) => number;
     }
 }

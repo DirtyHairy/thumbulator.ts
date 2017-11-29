@@ -43,9 +43,11 @@ const thumbulator = new Thumbulator({
     printer: (line: string): void => {
         // optional; override logging (uses console.log and console.error by default)
     },
+    stopAddress: number, // optional; the emulation stops with TrapReason.stop when
+                         // execution reaches this address
     trapOnInstructionFetch: (address: number): number => {
         // optional; return a nonzero trap code to trap and stop the emulation on
-        // instruction fetch
+        // instruction fetch. This is evaluated only if stopAddress is not set.
     },
     trapOnBx32: (instructionAddress: number, targetAddress: number): number => {
         // optional; handle BX out of thumb mode.
