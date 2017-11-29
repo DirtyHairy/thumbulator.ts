@@ -38,6 +38,7 @@ interface EmModuleApi {
     print(data: string): void;
     printErr(data: string): void;
     trapOnInstructionFetch(address: number): number;
+    trapOnBx32(address: number, targetAddress: number): number;
 
     busRead16(address: number): number;
     busRead32(address: number): number;
@@ -97,6 +98,7 @@ class Thumbulator {
             print: printer,
             printErr: printer,
             trapOnInstructionFetch: options.trapOnInstructionFetch || (() => 0),
+            trapOnBx32: options.trapOnBx32 || (() => Thumbulator.TrapReason.bxLeaveThumb),
 
             busRead16: bus.read16,
             busRead32: bus.read32 || (address => (bus.read16(address) & 0xffff) | (bus.read16(address + 2) << 16)),
@@ -131,6 +133,7 @@ namespace Thumbulator {
     export interface Options {
         printer?: (data: string) => void;
         trapOnInstructionFetch?: (address: number) => number;
+        trapOnBx32?: (address: number, targetAddress: number) => number;
     }
 }
 

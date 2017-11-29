@@ -251,7 +251,7 @@ static int execute ()
 
     const int custom_trap = EM_ASM_INT({
         return Module.trapOnInstructionFetch($0);
-    }, pc);
+    }, pc - 2);
 
     if (custom_trap) return custom_trap;
 
@@ -831,8 +831,18 @@ if(DISS) fprintf(stderr,"bx r%u\n",rm);
         }
         else
         {
-            fprintf(stderr,"cannot branch to arm 0x%08X 0x%04X\n",pc,inst);
-            return(trap_bx_leave_thumb);
+            const int trap = EM_ASM_INT({
+                return Module.trapOnBx32($0, $1);
+            }, pc - 4, rc);
+
+            if (!trap) {
+                rc = read_register(14); // lr
+                rc += 2;
+                rc &= ~1;
+                write_register(15, rc);
+            }
+
+            return trap;
         }
     }
 
