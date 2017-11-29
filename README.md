@@ -46,6 +46,9 @@ const thumbulator = new Thumbulator({
     trapOnInstructionFetch: (address: number): number => {
         // optional; return a nonzero trap code to trap and stop the emulation on
         // instruction fetch
+    },
+    trapOnBx32: (instructionAddress: number, targetAddress: number): number => {
+        // optional; handle BX out of thumb mode.
     }
 });
 ```

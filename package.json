@@ -1,6 +1,6 @@
 {
   "name": "thumbulator.ts",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "The Thumbulator ARM emulator by David Welch, compiled to JavaScript",
   "main": "lib/Thumbulator.js",
   "types": "lib/Thumbulator.d.ts",
